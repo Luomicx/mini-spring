@@ -1,5 +1,7 @@
 package com.silas.minispring;
 
+import com.silas.minispring.factory.AutoWireCapableBeanFactory;
+import com.silas.minispring.factory.BeanFactory;
 import org.junit.Test;
 
 /**
@@ -13,10 +15,11 @@ public class BeanFactoryTest {
     @Test
     public void Test() {
         //1. 初始化beanFactory
-        BeanFactory beanFactory = new BeanFactory();
+        BeanFactory beanFactory = new AutoWireCapableBeanFactory();
 
         // 2. 注入bean
-        BeanDefinition beanDefinition = new BeanDefinition(new HelloWorldService());
+        BeanDefinition beanDefinition = new BeanDefinition();
+        beanDefinition.setBeanClassName("com.silas.minispring.HelloWorldService");
         beanFactory.registerBeanDefinition("helloWorldService", beanDefinition);
 
         // 3.获取bean
