@@ -2,6 +2,7 @@ package com.silas.minispring.xml;
 
 import com.silas.minispring.AbstractBeanDefinitionReader;
 import com.silas.minispring.BeanDefinition;
+import com.silas.minispring.BeanReference;
 import com.silas.minispring.PropertyValue;
 import com.silas.minispring.io.ResourceLoader;
 import org.w3c.dom.Document;
@@ -73,7 +74,17 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                 Element propertyELe = (Element) node;
                 String name = propertyELe.getAttribute("name");
                 String value = propertyELe.getAttribute("value");
-                beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, value));
+                if (value != null && value.length() > 0) {
+                    beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, value));
+                } else {
+                    String ref = propertyELe.getAttribute("ref");
+                    if (ref == null || ref.length() == 0) {
+                        throw new IllegalArgumentException("Configuration problem: <property> element for property '" + name
+                         + "' must specify a ref or value");
+                    }
+                    BeanReference beanReference = new BeanReference(ref);
+                    beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, beanReference));
+                }
             }
         }
     }
