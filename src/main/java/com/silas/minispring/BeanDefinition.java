@@ -3,8 +3,9 @@ package com.silas.minispring;
 /**
  * BeanDefinition 是 Spring IoC 容器中极其重要的组成部分。
  * 它用于定义 Bean 的元信息，包括 Bean 的类类型、属性值、构造函数参数等。
- *
+ * <p>
  * 在当前的简易实现中，它主要充当 Bean 实例的包装容器。
+ *
  * @Author: 无糖茶 wiretender.top
  * @CreateTime: 2026-02-02
  * @Description: Bean 定义类，框架通过它来管理 Bean 的生命周期起点
@@ -23,7 +24,10 @@ public class BeanDefinition {
 
     private String beanClassName;
 
-    public BeanDefinition() {}
+    private PropertyValues propertyValues = new PropertyValues();
+
+    public BeanDefinition() {
+    }
 
     public String getBeanClassName() {
         return beanClassName;
@@ -45,10 +49,20 @@ public class BeanDefinition {
     public void setBeanClass(Class beanClass) {
         this.beanClass = beanClass;
     }
+
     public void setBean(Object bean) {
         this.bean = bean;
     }
+
     public Object getBean() {
         return bean;
+    }
+
+    public PropertyValues getPropertyValues() {
+        return propertyValues;
+    }
+
+    public void setPropertyValues(PropertyValues propertyValues) {
+        this.propertyValues = propertyValues;
     }
 }
