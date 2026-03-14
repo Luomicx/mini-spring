@@ -1,4 +1,4 @@
-package org.springframework.test.ioc;
+package org.springframework.test.ioc.service;
 
 /**
  * @Author: 无糖茶 wiretender.top
